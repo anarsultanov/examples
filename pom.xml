@@ -18,6 +18,7 @@
 
     <modules>
         <module>spring-boot-oauth2-mfa</module>
+        <module>grpc-java-authentication</module>
     </modules>
 
 </project>
