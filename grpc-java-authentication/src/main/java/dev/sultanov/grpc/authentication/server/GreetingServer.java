@@ -1,5 +1,6 @@
 package dev.sultanov.grpc.authentication.server;
 
+import dev.sultanov.grpc.authentication.shared.Constants;
 import dev.sultanov.grpc.authentication.shared.GreetingRequest;
 import dev.sultanov.grpc.authentication.shared.GreetingResponse;
 import dev.sultanov.grpc.authentication.shared.GreetingServiceGrpc;
@@ -15,6 +16,7 @@ public class GreetingServer {
         Server server = ServerBuilder
                 .forPort(8080)
                 .addService(new GreetingService())
+                .intercept(new AuthorizationServerInterceptor())
                 .build();
 
         server.start();
@@ -26,6 +28,9 @@ public class GreetingServer {
 
         @Override
         public void greeting(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
+            String clientId = Constants.CLIENT_ID_CONTEXT_KEY.get();
+            System.out.println("Processing request from " + clientId);
+
             String name = request.getName();
             String greeting = String.format("Hello, %s!", name.isBlank() ? "World" : name);
             GreetingResponse response = GreetingResponse.newBuilder()
