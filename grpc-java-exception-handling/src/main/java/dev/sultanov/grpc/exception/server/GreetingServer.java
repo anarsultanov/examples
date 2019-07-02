@@ -26,7 +26,10 @@ public class GreetingServer {
         @Override
         public void greeting(GreetingRequest request, StreamObserver<GreetingResponse> responseObserver) {
             String name = request.getName();
-            String greeting = String.format("Hello, %s!", name.isBlank() ? "World" : name);
+            if (name.isBlank()) {
+                throw new IllegalArgumentException("Missing name");
+            }
+            String greeting = String.format("Hello, %s!", name);
             GreetingResponse response = GreetingResponse.newBuilder()
                     .setGreeting(greeting)
                     .build();
