@@ -15,6 +15,7 @@ public class GreetingServer {
         Server server = ServerBuilder
                 .forPort(8080)
                 .addService(new GreetingService())
+                .intercept(new ExceptionHandler())
                 .build();
 
         server.start();
