@@ -20,6 +20,7 @@
         <module>spring-boot-oauth2-mfa</module>
         <module>grpc-java-authentication</module>
         <module>grpc-java-exception-handling</module>
+        <module>spring-boot-oauth2-jwt-claims</module>
     </modules>
 
 </project>
