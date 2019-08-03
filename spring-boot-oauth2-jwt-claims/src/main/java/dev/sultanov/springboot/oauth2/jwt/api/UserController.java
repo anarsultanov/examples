@@ -1,12 +1,9 @@
 package dev.sultanov.springboot.oauth2.jwt.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,13 +13,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-
-    private TokenStore tokenStore;
-
-    @Autowired
-    public UserController(TokenStore tokenStore) {
-        this.tokenStore = tokenStore;
-    }
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> me() {
@@ -35,8 +25,7 @@ public class UserController {
 
     private Map<String, Object> getAdditionalInfo(Authentication authentication) {
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
-        OAuth2AccessToken accessToken = tokenStore.readAccessToken(details.getTokenValue());
-        return accessToken.getAdditionalInformation();
+        return (Map<String, Object>) details.getDecodedDetails();
     }
 
     private class UserDto {
