@@ -21,6 +21,7 @@
         <module>grpc-java-authentication</module>
         <module>grpc-java-exception-handling</module>
         <module>spring-boot-oauth2-jwt-claims</module>
+        <module>spring-data-attribute-encryption</module>
     </modules>
 
 </project>
