@@ -1,5 +1,7 @@
 package dev.sultanov.springdata.attributeencryption;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,11 @@ public class User {
 
     @Convert(converter = AttributeEncryptor.class)
     private String name;
+
+    @ColumnTransformer(
+            read = "TRIM(CHAR(0) FROM UTF8TOSTRING(DECRYPT('AES', HASH('SHA256', STRINGTOUTF8('secret-key-12345'), 1), email)))",
+            write = "ENCRYPT('AES', HASH('SHA256', STRINGTOUTF8('secret-key-12345'), 1), STRINGTOUTF8(?))"
+    )
     private String email;
 
     public Long getId() {
