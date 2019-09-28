@@ -9,21 +9,28 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class UserService implements UserDetailsService {
 
     private UserRepository repository;
     private PasswordEncoder encoder;
+    private TenantService tenantService;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, TenantService tenantService) {
         this.repository = repository;
+        this.tenantService = tenantService;
         this.encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    @Transactional
     public User createUser(User user) {
         String encodedPassword = encoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        return repository.save(user);
+        User saved = repository.save(user);
+        tenantService.initDatabase(user.getUsername());
+        return saved;
     }
 
     @Override
