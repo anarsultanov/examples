@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "dev.sultanov.grpc.author";
+
+import "google/protobuf/empty.proto";
+
+message Author {
+    int32 id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    repeated int32 bookIds = 4;
+}
+
+service AuthorService {
+    rpc createAuthor (CreateAuthorRequest) returns (Author);
+    rpc getAuthor (GetAuthorRequest) returns (Author);
+    rpc addBook(AddBookRequest) returns (Author);
+}
+
+message CreateAuthorRequest {
+    string firstName = 2;
+    string lastName = 3;
+}
+
+message GetAuthorRequest {
+    int32 id = 1;
+}
+
+message AddBookRequest {
+    int32 authorId = 1;
+    int32 bookId = 2;
+}
