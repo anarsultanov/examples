@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package dev.sultanov.grpc.loadbalancing;
+
+message EchoRequest {
+    string message = 1;
+}
+
+message EchoResponse {
+    string message = 1;
+}
+
+service EchoService {
+    rpc echo (EchoRequest) returns (EchoResponse);
+}

@@ -23,6 +23,7 @@
         <module>spring-boot-oauth2-jwt-claims</module>
         <module>spring-data-attribute-encryption</module>
         <module>grpc-graphql-api</module>
+        <module>grpc-client-side-load-balancing</module>
     </modules>
 
 </project>
