@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.1.5.RELEASE</version>
+            <version>2.2.2.RELEASE</version>
         </dependency>
 
         <dependency>
