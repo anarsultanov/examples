@@ -3,8 +3,6 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "dev.sultanov.grpc.book";
 
-import "google/protobuf/empty.proto";
-
 message Book {
   int32 id = 1;
   string title = 2;
