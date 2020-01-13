@@ -25,6 +25,7 @@
         <module>schema-based-multi-tenancy</module>
         <module>grpc-graphql-api</module>
         <module>grpc-client-side-load-balancing</module>
+        <module>spring-boot-oauth2-pkce</module>
     </modules>
 
 </project>
