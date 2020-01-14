@@ -56,6 +56,10 @@ public class PkceAuthorizationCodeServices implements AuthorizationCodeServices 
         return clientSecret == null || passwordEncoder.matches("", clientSecret);
     }
 
+    public OAuth2Authentication consumeAuthorizationCodeAndCodeVerifier(String code, String verifier) {
+        return authorizationCodeStore.get(code).validateAndGetAuthentication(verifier);
+    }
+
     @Override
     public OAuth2Authentication consumeAuthorizationCode(String code) {
         throw new UnsupportedOperationException();
