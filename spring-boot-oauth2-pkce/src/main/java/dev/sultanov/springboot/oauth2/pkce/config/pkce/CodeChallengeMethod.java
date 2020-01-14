@@ -25,6 +25,12 @@ public enum CodeChallengeMethod {
         public boolean validate(String codeChallenge, String codeVerifier) {
             return codeChallenge.equals(codeVerifier);
         }
+    },
+    NONE {
+        @Override
+        public boolean validate(String codeChallenge, String codeVerifier) {
+            return true;
+        }
     };
 
     public abstract boolean validate(String codeChallenge, String codeVerifier);

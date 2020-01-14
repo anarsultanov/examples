@@ -8,6 +8,12 @@ public class PkceProtectedAuthentication {
     private final CodeChallengeMethod codeChallengeMethod;
     private final OAuth2Authentication authentication;
 
+    public PkceProtectedAuthentication(OAuth2Authentication authentication) {
+        this.codeChallenge = null;
+        this.codeChallengeMethod = CodeChallengeMethod.NONE;
+        this.authentication = authentication;
+    }
+
     public PkceProtectedAuthentication(String codeChallenge, CodeChallengeMethod codeChallengeMethod, OAuth2Authentication authentication) {
         this.codeChallenge = codeChallenge;
         this.codeChallengeMethod = codeChallengeMethod;
