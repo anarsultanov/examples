@@ -65,7 +65,7 @@ public class PkceAuthorizationCodeServices implements AuthorizationCodeServices 
     }
 
     public OAuth2Authentication consumeAuthorizationCodeAndCodeVerifier(String code, String verifier) {
-        return authorizationCodeStore.get(code).validateAndGetAuthentication(verifier);
+        return authorizationCodeStore.get(code).getAuthentication(verifier);
     }
 
     @Override

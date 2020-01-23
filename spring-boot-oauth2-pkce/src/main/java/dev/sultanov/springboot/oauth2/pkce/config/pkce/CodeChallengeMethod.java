@@ -10,11 +10,11 @@ import java.util.Base64;
 public enum CodeChallengeMethod {
     S256 {
         @Override
-        public boolean validate(String codeChallenge, String codeVerifier) {
+        public String transform(String codeVerifier) {
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
                 byte[] hash = digest.digest(codeVerifier.getBytes(StandardCharsets.UTF_8));
-                return codeChallenge.equals(Base64.getUrlEncoder().encodeToString(Hex.encode(hash)));
+                return Base64.getUrlEncoder().encodeToString(Hex.encode(hash));
             } catch (NoSuchAlgorithmException e) {
                 throw new IllegalStateException(e);
             }
@@ -22,16 +22,16 @@ public enum CodeChallengeMethod {
     },
     PLAIN {
         @Override
-        public boolean validate(String codeChallenge, String codeVerifier) {
-            return codeChallenge.equals(codeVerifier);
+        public String transform(String codeVerifier) {
+            return codeVerifier;
         }
     },
     NONE {
         @Override
-        public boolean validate(String codeChallenge, String codeVerifier) {
-            return true;
+        public String transform(String codeVerifier) {
+            throw new UnsupportedOperationException();
         }
     };
 
-    public abstract boolean validate(String codeChallenge, String codeVerifier);
+    public abstract String transform(String codeVerifier);
 }
