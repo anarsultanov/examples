@@ -13,7 +13,7 @@ public enum CodeChallengeMethod {
         public String transform(String codeVerifier) {
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] hash = digest.digest(codeVerifier.getBytes(StandardCharsets.UTF_8));
+                byte[] hash = digest.digest(codeVerifier.getBytes(StandardCharsets.US_ASCII));
                 return Base64.getUrlEncoder().encodeToString(Hex.encode(hash));
             } catch (NoSuchAlgorithmException e) {
                 throw new IllegalStateException(e);
