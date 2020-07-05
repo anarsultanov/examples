@@ -30,6 +30,7 @@
 
     <modules>
         <module>spring-oauth2-server</module>
+        <module>keycloak-server</module>
     </modules>
 
     <dependencies>
