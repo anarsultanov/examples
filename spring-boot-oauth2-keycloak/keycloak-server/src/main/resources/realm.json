@@ -57,6 +57,14 @@
         "clientRole": false,
         "containerId": "sultanov",
         "attributes": {}
+      },
+      {
+        "id": "53b11137-991a-40f6-b212-50f40679817a",
+        "name": "ROLE_USER",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "sultanov",
+        "attributes": {}
       }
     ],
     "client": {
@@ -1377,6 +1385,28 @@
         "subType": "anonymous",
         "subComponents": {},
         "config": {}
+      }
+    ],
+    "org.keycloak.storage.UserStorageProvider": [
+      {
+        "id": "81d8818b-2a3f-4a15-b308-a5c2c058d2fa",
+        "name": "remote",
+        "providerId": "remote",
+        "subComponents": {},
+        "config": {
+          "cachePolicy": [
+            "DEFAULT"
+          ],
+          "priority": [
+            "0"
+          ],
+          "enabled": [
+            "true"
+          ],
+          "userServiceUri": [
+            "http://localhost:8080"
+          ]
+        }
       }
     ],
     "org.keycloak.keys.KeyProvider": [
