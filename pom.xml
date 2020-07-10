@@ -12,7 +12,7 @@
     <properties>
         <maven.compiler.release>11</maven.compiler.release>
     </properties>
-    
+
     <modules>
         <module>spring-boot-oauth2-mfa</module>
         <module>grpc-java-authentication</module>
@@ -23,6 +23,7 @@
         <module>grpc-graphql-api</module>
         <module>grpc-client-side-load-balancing</module>
         <module>spring-boot-oauth2-pkce</module>
+        <module>spring-boot-oauth2-keycloak</module>
     </modules>
 
 </project>
