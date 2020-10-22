@@ -25,6 +25,7 @@
         <module>grpc-client-side-load-balancing</module>
         <module>spring-boot-oauth2-pkce</module>
         <module>spring-boot-oauth2-keycloak</module>
+        <module>spring-security-opa-authz</module>
     </modules>
 
 </project>
