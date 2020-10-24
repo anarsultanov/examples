@@ -14,3 +14,11 @@ allow {
   input.path = ["salary", _]
   input.authorities[_] == "ROLE_HR"
 }
+
+allow {
+  some username, i
+  input.method == "GET"
+  input.path = ["salary", username]
+  data.users[i].name == input.name
+  data.users[i].subordinates[_] == username
+}
