@@ -3,16 +3,21 @@ package authz
 default allow = false
 
 allow {
-  input.method == "GET"
-  input.path = ["salary", _]
-  input.authorities[_] == "ROLE_HR"
+  input.action == "read"
+  input.resource.type == "salary"
+  input.subject.authorities[_] == "ROLE_HR"
 }
 
 allow {
-  some username
-  input.method == "GET"
-  input.path = ["salary", username]
-  username == users_access[input.name][_]
+  input.action == "read"
+  input.resource.type == "salary"
+  input.resource.user == users_access[input.subject.name][_]
+}
+
+allow {
+  input.action == "read"
+  input.resource.type == "document"
+  input.resource.owner == input.subject.name
 }
 
 users_graph[data.users[username].name] = edges {
