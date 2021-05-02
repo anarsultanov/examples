@@ -26,6 +26,7 @@
         <module>spring-boot-oauth2-pkce</module>
         <module>spring-boot-oauth2-keycloak</module>
         <module>spring-security-opa-authz</module>
+        <module>cadence-saga</module>
     </modules>
 
 </project>
