@@ -19,4 +19,16 @@ class InvoiceTest {
         // then
         assertThat(result).isEqualTo(5.0);
     }
+
+    @Test
+    void calculateTaxUsingProvider() {
+        // given
+        var invoice = new Invoice(50);
+
+        // when
+        var result = invoice.calculateTaxUsingProvider();
+
+        // then
+        assertThat(result).isEqualTo(12.5);
+    }
 }

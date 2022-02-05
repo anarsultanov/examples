@@ -4,7 +4,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TaxCalculator {
+public class TaxCalculator implements ITaxCalculator {
 
     private static TaxCalculator instance;
 
@@ -17,6 +17,7 @@ public class TaxCalculator {
         instance = this;
     }
 
+    @Override
     public double calculate(double price) {
         return price * 0.25;
     }
