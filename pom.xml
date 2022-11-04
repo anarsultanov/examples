@@ -10,8 +10,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <modules>
@@ -28,6 +28,7 @@
         <module>spring-security-opa-authz</module>
         <module>cadence-saga</module>
         <module>spring-boot-unmanaged-objects</module>
+        <module>grpc-java-long-lived-stream</module>
     </modules>
 
 </project>
