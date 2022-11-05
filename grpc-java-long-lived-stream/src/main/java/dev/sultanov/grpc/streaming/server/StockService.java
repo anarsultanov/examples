@@ -5,6 +5,7 @@ import dev.sultanov.grpc.streaming.StockPriceResponse;
 import dev.sultanov.grpc.streaming.StockServiceGrpc;
 import io.grpc.Status;
 import io.grpc.StatusException;
+import io.grpc.stub.ServerCallStreamObserver;
 import io.grpc.stub.StreamObserver;
 
 public class StockService extends StockServiceGrpc.StockServiceImplBase {
@@ -19,6 +20,8 @@ public class StockService extends StockServiceGrpc.StockServiceImplBase {
                         stock -> {
                             responseObserver.onNext(StockPriceResponse.newBuilder().setSymbol(stock.getSymbol()).setPrice(stock.getPrice()).build());
                             subject.register(request.getSymbol(), responseObserver);
+                            var serverCallStreamObserver = ((ServerCallStreamObserver<StockPriceResponse>) responseObserver);
+                            serverCallStreamObserver.setOnCancelHandler(() -> subject.unregister(request.getSymbol(), responseObserver));
                         },
                         () -> responseObserver.onError(new StatusException(Status.NOT_FOUND))
                 );

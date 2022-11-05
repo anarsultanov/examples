@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +20,12 @@ public enum StockPriceChangedSubject {
     public void register(String symbol, StreamObserver<StockPriceResponse> observer) {
         synchronized (MUTEX) {
             observers.computeIfAbsent(symbol, k -> new ArrayList<>()).add(observer);
+        }
+    }
+
+    public void unregister(String symbol, StreamObserver<StockPriceResponse> observer) {
+        synchronized (MUTEX) {
+            Optional.ofNullable(observers.get(symbol)).ifPresent(observerList -> observerList.remove(observer));
         }
     }
 
