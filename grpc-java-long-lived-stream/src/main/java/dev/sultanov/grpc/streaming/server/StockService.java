@@ -10,6 +10,7 @@ import io.grpc.stub.StreamObserver;
 public class StockService extends StockServiceGrpc.StockServiceImplBase {
 
     private final StockRepository repository = StockRepository.INSTANCE;
+    private final StockPriceChangedSubject subject = StockPriceChangedSubject.INSTANCE;
 
     @Override
     public void getPrice(StockPriceRequest request, StreamObserver<StockPriceResponse> responseObserver) {
@@ -17,7 +18,7 @@ public class StockService extends StockServiceGrpc.StockServiceImplBase {
                 .ifPresentOrElse(
                         stock -> {
                             responseObserver.onNext(StockPriceResponse.newBuilder().setSymbol(stock.getSymbol()).setPrice(stock.getPrice()).build());
-                            responseObserver.onCompleted();
+                            subject.register(request.getSymbol(), responseObserver);
                         },
                         () -> responseObserver.onError(new StatusException(Status.NOT_FOUND))
                 );
