@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package dev.sultanov.grpc.streaming;
+
+import "google/protobuf/empty.proto";
+
+message StockPriceRequest {
+    string symbol = 1;
+}
+
+message StockPriceResponse {
+    string symbol = 1;
+    double price = 2;
+}
+
+service StockService {
+    rpc GetPrice(StockPriceRequest) returns (stream StockPriceResponse);
+}
