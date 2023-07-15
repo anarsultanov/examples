@@ -29,6 +29,7 @@
         <module>cadence-saga</module>
         <module>spring-boot-unmanaged-objects</module>
         <module>grpc-java-long-lived-stream</module>
+        <module>grpc-java-webflux</module>
     </modules>
 
 </project>
