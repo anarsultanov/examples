@@ -12,7 +12,7 @@
     <artifactId>grpc-java-authentication</artifactId>
 
     <properties>
-        <io.grpc.version>1.21.0</io.grpc.version>
+        <io.grpc.version>1.53.0</io.grpc.version>
     </properties>
 
     <dependencies>
