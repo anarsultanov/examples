@@ -6,6 +6,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 import dev.sultanov.grpc.webflux.StockPriceRequest;
 import dev.sultanov.grpc.webflux.StockPriceResponse;
 import dev.sultanov.grpc.webflux.StockServiceGrpc;
+import io.grpc.Context;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.boot.SpringApplication;
@@ -41,8 +42,10 @@ public class StockApplication {
             }
         };
         StockPriceRequest request = StockPriceRequest.newBuilder().setSymbol(symbol).build();
-        stub.getPrice(request, observer);
-        return observer.getFlux();
+
+        var context = Context.current().fork().withCancellation();
+        context.run(() -> stub.getPrice(request, observer));
+        return observer.getFlux().doFinally(signalType -> context.cancel(new RuntimeException("Context closed by " + signalType.name())));
     }
 
     private record StockPrice(String symbol, double price) {
