@@ -3,6 +3,11 @@ package dev.sultanov.grpc.streaming.client;
 import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
+import dev.sultanov.grpc.webflux.StockPriceRequest;
+import dev.sultanov.grpc.webflux.StockPriceResponse;
+import dev.sultanov.grpc.webflux.StockServiceGrpc;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +17,11 @@ import reactor.core.publisher.Flux;
 
 @SpringBootApplication
 public class StockApplication {
+
+    private final ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 8080)
+            .usePlaintext()
+            .build();
+    private final StockServiceGrpc.StockServiceStub stub = StockServiceGrpc.newStub(channel);
 
     public static void main(String[] args) {
         SpringApplication.run(StockApplication.class, args);
@@ -24,7 +34,15 @@ public class StockApplication {
     }
 
     private Flux<StockPrice> getStockPrice(String symbol) {
-        return Flux.empty();
+        var observer = new ReactiveStreamObserver<StockPrice, StockPriceResponse>() {
+            @Override
+            public StockPrice process(StockPriceResponse value) {
+                return new StockPrice(value.getSymbol(), value.getPrice());
+            }
+        };
+        StockPriceRequest request = StockPriceRequest.newBuilder().setSymbol(symbol).build();
+        stub.getPrice(request, observer);
+        return observer.getFlux();
     }
 
     private record StockPrice(String symbol, double price) {
