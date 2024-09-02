@@ -30,6 +30,7 @@
         <module>spring-boot-unmanaged-objects</module>
         <module>grpc-java-long-lived-stream</module>
         <module>grpc-java-webflux</module>
+        <module>langchain4j-spring-statemachine</module>
     </modules>
 
 </project>
